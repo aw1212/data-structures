@@ -18,14 +18,32 @@ public class DoubleLinkedList<E> {
         return size;
     }
 
+    public void printList() {
+        String nodes = getListString(first, "");
+        System.out.println(nodes);
+    }
+
+    private String getListString(Node<E> node, String result) {
+        if (node == null) {
+            return result;
+        }
+
+        if (node.getNext() == null) {
+            result += node;
+        } else {
+            result += node + " -> ";
+        }
+        return getListString(node.next, result);
+    }
+
     public void addToEnd(E newNodeValue) {
         if (size == 0) {
-            Node<E> newNode = new Node<E>(newNodeValue, null, null);
+            Node<E> newNode = new Node<>(newNodeValue, null, null);
             first = newNode;
             last = newNode;
         } else {
             Node<E> oldLast = last;
-            Node<E> newLast = new Node<E>(newNodeValue, oldLast, null);
+            Node<E> newLast = new Node<>(newNodeValue, oldLast, null);
             oldLast.setNext(newLast);
 
             last = newLast;
@@ -36,12 +54,12 @@ public class DoubleLinkedList<E> {
 
     public void addToBeginning(E newNodeValue) {
         if (size == 0) {
-            Node<E> newNode = new Node<E>(newNodeValue, null, null);
+            Node<E> newNode = new Node<>(newNodeValue, null, null);
             first = newNode;
             last = newNode;
         } else {
             Node<E> oldFirst = first;
-            Node<E> newFirst = new Node<E>(newNodeValue, null, oldFirst);
+            Node<E> newFirst = new Node<>(newNodeValue, null, oldFirst);
             oldFirst.setPrevious(newFirst);
 
             first = newFirst;
@@ -100,27 +118,89 @@ public class DoubleLinkedList<E> {
 
     public void add(int index, E newNodeValue) {
         if (index < 0) {
-            throw new IllegalArgumentException("Minimum index is 0");
+            throw new IndexOutOfBoundsException("Minimum index is 0");
         }
 
         if (index > size) {
-            throw new IllegalArgumentException("Cannot add to index greater than size of list");
+            throw new IndexOutOfBoundsException("Cannot add to index greater than size of list");
+        }
+
+        if (index == 0) {
+            addToBeginning(newNodeValue);
+        } else if (index == size) {
+            addToEnd(newNodeValue);
+        } else {
+            int counter = 0;
+
+            Node<E> nodeBefore = first;
+
+            while (counter < index - 1) {
+                nodeBefore = nodeBefore.getNext();
+                counter++;
+            }
+
+            Node<E> nodeAfter = nodeBefore.getNext();
+
+
+            Node<E> newNode = new Node<>(newNodeValue, nodeBefore, nodeAfter);
+
+            nodeBefore.setNext(newNode);
+            if (nodeAfter != null) {
+                nodeAfter.setPrevious(newNode);
+            }
+        }
+
+    }
+
+    public E remove(int index) {
+        if (index < 0) {
+            throw new IndexOutOfBoundsException("Minimum index is 0");
+        }
+
+        if (index > size) {
+            throw new IndexOutOfBoundsException("Cannot remove from index greater than size of list");
+        }
+
+        if (index == 0) {
+            return removeFromBeginning();
+        }
+
+        if (index == size) {
+            return removeFromEnd();
         }
 
         int counter = 0;
 
+        Node<E> nodeBefore = first;
 
-        while (counter < index) {
-            // TODO
+        while (counter < index - 1) {
+            nodeBefore = nodeBefore.getNext();
+            counter++;
         }
+
+        Node<E> nodeToRemove = nodeBefore.getNext();
+
+        Node<E> nodeAfter = nodeToRemove.getNext();
+
+        nodeBefore.setNext(nodeAfter);
+        if (nodeAfter != null) {
+            nodeAfter.setPrevious(nodeBefore);
+        }
+
+        return nodeToRemove.value;
     }
 
-    public void remove(int index) {
-        // TODO
-    }
+    public E removeFirstOccurence(E valueToRemove) {
+        Node<E> currentNode = first;
 
-    public void removeFirstOccurence(E valueToRemove) {
-        // TODO
+        for (int i = 0; i <= size; i++) {
+            if (currentNode.getValue().equals(valueToRemove)) {
+                return remove(i);
+            }
+            currentNode = currentNode.getNext();
+        }
+
+        return null;
     }
 
     private class Node<E> {
@@ -159,6 +239,12 @@ public class DoubleLinkedList<E> {
             this.next = next;
         }
 
+        @Override
+        public String toString() {
+            String prev = previous == null ? "null" : previous.value.toString();
+            String nxt = next == null ? "null" : next.value.toString();
+            return "[" + prev + "|" + value + "|" + nxt +"]";
+        }
     }
 
 }
