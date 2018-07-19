@@ -17,8 +17,10 @@ public class Main {
         doubleLinkedList.add(1, 2);
         doubleLinkedList.printList();
 
-        doubleLinkedList.removeFirstOccurence(4);
+        doubleLinkedList.removeFirstOccurrence(4);
         doubleLinkedList.printList();
+
+        System.out.println(doubleLinkedList.get(1));
     }
 
 }

@@ -18,6 +18,10 @@ public class DoubleLinkedList<E> {
         return size;
     }
 
+    public boolean isEmpty() {
+        return size > 0;
+    }
+
     public void printList() {
         String nodes = getListString(first, "");
         System.out.println(nodes);
@@ -148,6 +152,8 @@ public class DoubleLinkedList<E> {
             if (nodeAfter != null) {
                 nodeAfter.setPrevious(newNode);
             }
+
+            size++;
         }
 
     }
@@ -187,10 +193,11 @@ public class DoubleLinkedList<E> {
             nodeAfter.setPrevious(nodeBefore);
         }
 
+        size--;
         return nodeToRemove.value;
     }
 
-    public E removeFirstOccurence(E valueToRemove) {
+    public E removeFirstOccurrence(E valueToRemove) {
         Node<E> currentNode = first;
 
         for (int i = 0; i <= size; i++) {
@@ -198,6 +205,30 @@ public class DoubleLinkedList<E> {
                 return remove(i);
             }
             currentNode = currentNode.getNext();
+        }
+
+        return null;
+    }
+
+    public E get(int index) {
+        if (index < 0) {
+            throw new IndexOutOfBoundsException("Minimum index is 0");
+        }
+
+        if (index > size - 1) {
+            throw new IndexOutOfBoundsException("Cannot remove from index greater than size of list");
+        }
+
+        Node<E> currentNode = first;
+
+        int counter = 0;
+        while (counter < index) {
+            currentNode = currentNode.getNext();
+            counter++;
+        }
+
+        if (currentNode != null) {
+            return currentNode.getValue();
         }
 
         return null;
