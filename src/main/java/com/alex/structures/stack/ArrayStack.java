@@ -18,7 +18,11 @@ public class ArrayStack<E> {
 
     public void push(E value) {
         if (stackArray.length == size) {
-            // copy over to bigger array
+            E[] newArray = (E[]) new Object[stackArray.length * 2];
+            for (int i = 0; i < stackArray.length; i++) {
+                newArray[i] = stackArray[i];
+                stackArray = newArray;
+            }
         }
         stackArray[size] = value;
         headIndex = size;
@@ -46,12 +50,10 @@ public class ArrayStack<E> {
     }
 
     public void printStack() {
-        for (int i = 0; i < size; i++) {
-            if (i == headIndex) {
-                System.out.print("[" + stackArray[i] + "]");
-            } else {
-                System.out.print(stackArray[i]);
-            }
+        int index = headIndex;
+        while (index >= 0) {
+            System.out.print(" " + stackArray[index] + " ");
+            index--;
         }
     }
 

@@ -1,5 +1,7 @@
 package com.alex.structures.linkedlist;
 
+import java.util.function.Function;
+
 public class DoubleLinkedList<E> {
 
     private Node<E> first;
@@ -22,6 +24,28 @@ public class DoubleLinkedList<E> {
         return size > 0;
     }
 
+    public void printListValueFirstToLast() {
+        Function<Node<E>, Node<E>> getNext = Node::getNext;
+        String values = getListValues(first, getNext, "");
+        System.out.println(values);
+    }
+
+    public void printListValueLastToFirst() {
+        Function<Node<E>, Node<E>> getPrevious = Node::getPrevious;
+        String values = getListValues(last, getPrevious, "");
+        System.out.println(values);
+    }
+
+    private String getListValues(Node<E> node, Function<Node<E>, Node<E>> function, String result) {
+        if (node == null) {
+            return result;
+        }
+
+        result += " " + node.value + " ";
+
+        return getListValues(function.apply(node), function, result);
+    }
+
     public void printList() {
         String nodes = getListString(first, "");
         System.out.println(nodes);
@@ -42,9 +66,7 @@ public class DoubleLinkedList<E> {
 
     public void addToEnd(E newNodeValue) {
         if (size == 0) {
-            Node<E> newNode = new Node<>(newNodeValue, null, null);
-            first = newNode;
-            last = newNode;
+            addFirstNode(newNodeValue);
         } else {
             Node<E> oldLast = last;
             Node<E> newLast = new Node<>(newNodeValue, oldLast, null);
@@ -58,9 +80,7 @@ public class DoubleLinkedList<E> {
 
     public void addToBeginning(E newNodeValue) {
         if (size == 0) {
-            Node<E> newNode = new Node<>(newNodeValue, null, null);
-            first = newNode;
-            last = newNode;
+            addFirstNode(newNodeValue);
         } else {
             Node<E> oldFirst = first;
             Node<E> newFirst = new Node<>(newNodeValue, null, oldFirst);
@@ -70,6 +90,12 @@ public class DoubleLinkedList<E> {
         }
 
         size++;
+    }
+
+    private void addFirstNode(E newNodeValue) {
+        Node<E> newNode = new Node<>(newNodeValue, null, null);
+        first = newNode;
+        last = newNode;
     }
 
     public E removeFromEnd() {

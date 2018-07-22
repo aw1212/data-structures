@@ -10,16 +10,16 @@ public class LinkedListStack<E> {
         doubleLinkedList = new DoubleLinkedList<>();
     }
 
-    public void push(E value) {
-        doubleLinkedList.addToBeginning(value);
-    }
-
     public int getSize() {
         return doubleLinkedList.getSize();
     }
 
     public boolean isEmpty() {
         return doubleLinkedList.isEmpty();
+    }
+
+    public void push(E value) {
+        doubleLinkedList.addToBeginning(value);
     }
 
     public E pop() {
@@ -37,7 +37,7 @@ public class LinkedListStack<E> {
     }
 
     public void printStack() {
-        doubleLinkedList.printList();
+        doubleLinkedList.printListValueFirstToLast();
     }
 
 }
