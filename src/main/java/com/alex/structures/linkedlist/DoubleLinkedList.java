@@ -260,6 +260,18 @@ public class DoubleLinkedList<E> {
         return null;
     }
 
+    public boolean contains(E value) {
+        Node<E> current = first;
+        while (current.getNext() != null) {
+            if (current.getValue().equals(value)) {
+                return true;
+            }
+            current = current.getNext();
+        }
+
+        return false;
+    }
+
     private class Node<E> {
 
         private E value;

@@ -1,6 +1,6 @@
 package com.alex.structures.stack;
 
-public class ArrayStack<E> {
+public class ArrayStack<E> implements Stack<E> {
 
     private static final int DEFAULT_START_SIZE = 5;
 
@@ -16,6 +16,7 @@ public class ArrayStack<E> {
         stackArray = (E[])new Object[startSize];
     }
 
+    @Override
     public void push(E value) {
         if (stackArray.length == size) {
             E[] newArray = (E[]) new Object[stackArray.length * 2];
@@ -29,6 +30,7 @@ public class ArrayStack<E> {
         size++;
     }
 
+    @Override
     public E pop() {
         if (size == 0) {
             throw new IllegalArgumentException("Cannot pop from empty stack");
@@ -41,12 +43,23 @@ public class ArrayStack<E> {
         return element;
     }
 
+    @Override
     public E peek() {
         if (size == 0) {
             throw new IllegalArgumentException("Cannot peek an empty stack");
         }
 
         return stackArray[headIndex];
+    }
+
+    @Override
+    public boolean contains(E value) {
+        for (int i = 0; i < size; i++) {
+            if (stackArray[i].equals(value)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void printStack() {

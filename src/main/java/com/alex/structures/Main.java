@@ -1,10 +1,6 @@
 package com.alex.structures;
 
-import com.alex.structures.linkedlist.DoubleLinkedList;
 import com.alex.structures.queue.ArrayQueue;
-import com.alex.structures.queue.LinkedListQueue;
-import com.alex.structures.stack.ArrayStack;
-import com.alex.structures.stack.LinkedListStack;
 
 public class Main {
 
@@ -16,14 +12,6 @@ public class Main {
 //
 //        doubleLinkedList.printListValueFirstToLast();
 //        doubleLinkedList.printListValueLastToFirst();
-
-//        LinkedListStack<Integer> linkedListStack = new LinkedListStack<>();
-//
-//        linkedListStack.push(3);
-//        linkedListStack.push(2);
-//        linkedListStack.push(1);
-//
-//        linkedListStack.printStack();
 
 //        ArrayStack<Integer> arrayStack = new ArrayStack<>();
 //
