@@ -5,35 +5,7 @@ import com.alex.structures.queue.ArrayQueue;
 public class Main {
 
     public static void main(String[] args) {
-//        DoubleLinkedList<Integer> doubleLinkedList = new DoubleLinkedList<>();
-//        doubleLinkedList.addToBeginning(2);
-//        doubleLinkedList.addToEnd(3);
-//        doubleLinkedList.addToBeginning(1);
-//
-//        doubleLinkedList.printListValueFirstToLast();
-//        doubleLinkedList.printListValueLastToFirst();
 
-//        ArrayStack<Integer> arrayStack = new ArrayStack<>();
-//
-//        arrayStack.push(1);
-//        arrayStack.push(2);
-//        arrayStack.push(3);
-//
-//        arrayStack.printStack();
-
-//        LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<>();
-//        linkedListQueue.enqueue(1);
-//        linkedListQueue.enqueue(2);
-//        linkedListQueue.enqueue(3);
-//
-//        linkedListQueue.printQueue();
-
-        //1 2 3 4 5
-        //[] [] 3 4 5
-        //6 7 3 4 5
-        //3 4 5 6 7 8 [] [] [] []
-        //[] 4 5 6 7 8 [] [] [] []
-        //[] 4 5 6 7 8 9 [] [] []
 
         ArrayQueue<Integer> arrayQueue = new ArrayQueue<>();
         arrayQueue.enqueue(1);

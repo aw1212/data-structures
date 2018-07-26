@@ -1,23 +1,26 @@
 package com.alex.structures.queue;
 
-import com.alex.structures.linkedlist.DoubleLinkedList;
+import com.alex.structures.list.DoubleLinkedList;
 
-public class LinkedListQueue<E> {
+public class DoubleLinkedListQueue<E> implements Queue<E> {
 
     private DoubleLinkedList<E> doubleLinkedList;
 
-    public LinkedListQueue() {
+    public DoubleLinkedListQueue() {
         doubleLinkedList = new DoubleLinkedList<>();
     }
 
+    @Override
     public void enqueue(E value) {
         doubleLinkedList.addToBeginning(value);
     }
 
+    @Override
     public E dequeue() {
         return doubleLinkedList.removeFromEnd();
     }
 
+    @Override
     public int getSize() {
         return doubleLinkedList.getSize();
     }

@@ -1,6 +1,6 @@
 package com.alex.structures.queue;
 
-public class ArrayQueue<E> {
+public class ArrayQueue<E> implements Queue<E> {
 
     private static final int DEFAULT_START_SIZE = 5;
     private Integer headIndex;
@@ -56,6 +56,7 @@ public class ArrayQueue<E> {
         return result.toString();
     }
 
+    @Override
     public void enqueue(E value) {
         if (size == queue.length) {
             growAndReAllocate();
@@ -112,6 +113,7 @@ public class ArrayQueue<E> {
         queue = copy;
     }
 
+    @Override
     public E dequeue() {
         if (headIndex == null) {
             throw new IllegalArgumentException("Cannot dequeue from empty queue");
@@ -137,6 +139,7 @@ public class ArrayQueue<E> {
         return value;
     }
 
+    @Override
     public int getSize() {
         return size;
     }

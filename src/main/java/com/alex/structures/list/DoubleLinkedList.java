@@ -1,4 +1,4 @@
-package com.alex.structures.linkedlist;
+package com.alex.structures.list;
 
 import java.util.function.Function;
 
@@ -314,6 +314,7 @@ public class DoubleLinkedList<E> {
             String nxt = next == null ? "null" : next.value.toString();
             return "[" + prev + "|" + value + "|" + nxt +"]";
         }
+
     }
 
 }

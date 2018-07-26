@@ -1,6 +1,6 @@
 package com.alex.structures.stack;
 
-import com.alex.structures.linkedlist.DoubleLinkedList;
+import com.alex.structures.list.DoubleLinkedList;
 
 public class DoubleLinkedListStack<E> implements Stack<E> {
 

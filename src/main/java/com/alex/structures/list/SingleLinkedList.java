@@ -1,4 +1,4 @@
-package com.alex.structures.linkedlist;
+package com.alex.structures.list;
 
 public class SingleLinkedList<E> {
 
