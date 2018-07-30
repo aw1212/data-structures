@@ -1,8 +1,9 @@
 package com.alex.structures.list;
 
+import java.util.Iterator;
 import java.util.function.Function;
 
-public class DoubleLinkedList<E> {
+public class DoubleLinkedList<E> implements Iterable<E> {
 
     private Node<E> first;
     private Node<E> last;
@@ -272,6 +273,11 @@ public class DoubleLinkedList<E> {
         return false;
     }
 
+    @Override
+    public Iterator<E> iterator() {
+        return new Itr();
+    }
+
     private class Node<E> {
 
         private E value;
@@ -315,6 +321,30 @@ public class DoubleLinkedList<E> {
             return "[" + prev + "|" + value + "|" + nxt +"]";
         }
 
+    }
+
+    private class Itr implements Iterator<E> {
+
+        private int cursor;
+        private Node<E> next;
+        private Node<E> lastReturned;
+
+        public Itr() {
+            next = first;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return cursor < size;
+        }
+
+        @Override
+        public E next() {
+            lastReturned = next;
+            next = next.getNext();
+            cursor++;
+            return lastReturned.getValue();
+        }
     }
 
 }
