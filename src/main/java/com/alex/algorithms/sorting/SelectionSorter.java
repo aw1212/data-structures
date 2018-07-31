@@ -1,6 +1,6 @@
 package com.alex.algorithms.sorting;
 
-public class SelectionSorter<E extends Comparable<E>> implements Sorting<E> {
+public class SelectionSorter<E extends Comparable<E>> implements LinearSorting<E> {
 
     @Override
     public void sort(E[] input) {

@@ -1,6 +1,6 @@
 package com.alex.algorithms.sorting;
 
-public interface Sorting<E extends Comparable<E>> {
+public interface LinearSorting<E extends Comparable<E>> {
 
     void sort(E[] input);
 

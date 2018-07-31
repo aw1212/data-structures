@@ -1,6 +1,6 @@
 package com.alex.algorithms.sorting;
 
-public class BubbleSorter<E extends Comparable<E>> implements Sorting<E> {
+public class BubbleSorter<E extends Comparable<E>> implements LinearSorting<E> {
 
 //    public E[] sort(E[] input) {
 //        for (int i = 0; i < input.length; i++) {
@@ -24,16 +24,16 @@ public class BubbleSorter<E extends Comparable<E>> implements Sorting<E> {
     @Override
     public void sort(E[] input) {
         for (int i = 0; i < input.length; i++) {
-            int numSwaps = 0;
+            boolean swapped = false;
             for (int j = 0; j < input.length - 1; j++) {
                 if (input[j].compareTo(input[j + 1]) > 0) {
                     E temp = input[j + 1];
                     input[j + 1] = input[j];
                     input[j] = temp;
-                    numSwaps++;
+                    swapped = true;
                 }
             }
-            if (numSwaps == 0) {
+            if (!swapped) {
                 break;
             }
         }

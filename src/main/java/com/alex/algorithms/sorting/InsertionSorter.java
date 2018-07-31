@@ -1,6 +1,6 @@
 package com.alex.algorithms.sorting;
 
-public class InsertionSorter<E extends Comparable<E>> implements Sorting<E> {
+public class InsertionSorter<E extends Comparable<E>> implements LinearSorting<E> {
 
 //    @Override
 //    public E[] sort(E[] input) {
