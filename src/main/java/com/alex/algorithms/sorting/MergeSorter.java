@@ -4,81 +4,61 @@ public class MergeSorter implements DivideAndConquerSorting {
 
     @Override
     public int[] sort(int[] input) {
-        if (input.length == 0) {
-            return new int[]{};
+        if (input.length < 2) {
+            return input;
         }
 
-        return divideAndConquer(input);
+        SplitArray splitArray = split(input);
+        return merge(sort(splitArray.left), sort(splitArray.right));
     }
 
-    private int[] divideAndConquer(int[] array) {
-        if (array.length == 1) {
-            return array;
-        }
-
-        Pair split = split(array);
-        return merge(divideAndConquer(split.left), divideAndConquer(split.right));
-    }
-
-    private Pair split(int[] array) {
-        int leftSize = array.length / 2;
-        int rightSize = array.length - leftSize;
-
-        int[] left  = new int[leftSize];
-        int[] right = new int[rightSize];
+    private SplitArray split(int[] array) {
+        int[] left  = new int[array.length / 2];
+        int[] right = new int[array.length - left.length];
 
         int arrayIndex = 0;
         for (int i = 0; i < left.length; i++) {
-            left[i] = array[arrayIndex];
-            arrayIndex++;
+            left[i] = array[arrayIndex++];
         }
 
         for (int i = 0; i < right.length; i++) {
-            right[i] = array[arrayIndex];
-            arrayIndex++;
+            right[i] = array[arrayIndex++];
         }
 
-        return new Pair(left, right);
+        return new SplitArray(left, right);
     }
 
     private int[] merge(int[] left, int[] right) {
         int[] combined = new int[left.length + right.length];
-        int combinedIndex = 0;
 
+        int combinedIndex = 0;
         int leftIndex = 0;
         int rightIndex = 0;
+
         while (combinedIndex < combined.length) {
             if (leftIndex >= left.length) {
-                while (rightIndex < right.length) {
-                    combined[combinedIndex] = right[rightIndex];
-                    rightIndex++;
-                    combinedIndex++;
+                for (int i = rightIndex; i < right.length; i++) {
+                    combined[combinedIndex++] = right[rightIndex++];
                 }
             } else if (rightIndex >= right.length) {
-                while (leftIndex < left.length) {
-                    combined[combinedIndex] = left[leftIndex];
-                    leftIndex++;
-                    combinedIndex++;
+                for (int i = leftIndex; i < left.length; i++) {
+                    combined[combinedIndex++] = left[leftIndex++];
                 }
             } else if (left[leftIndex] < right[rightIndex]) {
-                combined[combinedIndex] = left[leftIndex];
-                leftIndex++;
-                combinedIndex++;
+                combined[combinedIndex++] = left[leftIndex++];
             } else {
-                combined[combinedIndex] = right[rightIndex];
-                rightIndex++;
-                combinedIndex++;
+                combined[combinedIndex++] = right[rightIndex++];
             }
         }
 
         return combined;
     }
 
-    private class Pair {
+    private class SplitArray {
         private int[] left;
         private int[] right;
 
-        Pair(int[] left, int[] right) {
+        SplitArray(int[] left, int[] right) {
             this.left = left;
             this.right = right;
         }
