@@ -10,4 +10,8 @@ public interface Stack<E> {
 
     boolean contains(E element);
 
+    boolean isEmpty();
+
+    int getSize();
+
 }

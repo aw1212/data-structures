@@ -62,6 +62,16 @@ public class ArrayStack<E> implements Stack<E> {
         return false;
     }
 
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
+    public int getSize() {
+        return size;
+    }
+
     public void printStack() {
         int index = headIndex;
         while (index >= 0) {
