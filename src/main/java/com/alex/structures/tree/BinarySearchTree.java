@@ -1,6 +1,6 @@
 package com.alex.structures.tree;
 
-public class BinaryTree<E extends Comparable<E>> {
+public class BinarySearchTree<E extends Comparable<E>> {
 
     private TreeNode<E> root;
     private int size;

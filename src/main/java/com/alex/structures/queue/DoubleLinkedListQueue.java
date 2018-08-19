@@ -25,6 +25,11 @@ public class DoubleLinkedListQueue<E> implements Queue<E> {
         return doubleLinkedList.getSize();
     }
 
+    @Override
+    public boolean isEmpty() {
+        return doubleLinkedList.isEmpty();
+    }
+
     public void printQueue() {
         doubleLinkedList.printListValueLastToFirst();
     }
