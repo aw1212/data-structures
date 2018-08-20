@@ -3,45 +3,48 @@ package com.alex.structures.hashtable;
 public class HashTable<K, V> {
 
     private static final int DEFAULT_DATA_SIZE = 10;
-    private Node<K, V>[] data;
+    private Entry<K, V>[] data;
     private int size;
 
     public HashTable() {
-        data = (Node<K, V>[]) new Node[DEFAULT_DATA_SIZE];
+        data = (Entry<K, V>[]) new Entry[DEFAULT_DATA_SIZE];
     }
 
     public int size() {
         return size;
     }
 
-    public void put(K key, V value) {
-        Node<K, V> entry = new Node<>(key, value, null);
+    public V put(K key, V value) {
+        Entry<K, V> entry = new Entry<>(key, value, null);
 
         int index = getIndex(key);
 
         if (data[index] == null) {
             data[index] = entry;
             size++;
-        } else {
-            Node<K, V> current = data[index];
-            while (current.getNext() != null) {
-                if (current.getKey().equals(key)) {
-                    entry.setNext(current.getNext());
-                    current = entry;
-                    break;
-                }
-                if (current.getKey() == null) {
-                    current.setNext(entry);
-                    size++;
-                }
-                current = current.getNext();
-            }
+            return null;
         }
+
+        Entry<K, V> current = data[index];
+        while (current.getNext() != null) {
+            if (current.getKey().equals(key)) {
+                V oldValue = current.getValue();
+                entry.setNext(current.getNext());
+                //TODO set previous's next to entry
+                return oldValue;
+            }
+            current = current.getNext();
+        }
+
+        current.setNext(entry);
+        size++;
+
+        return null;
     }
 
     public boolean hasKey(K key) {
         int index = getIndex(key);
-        Node<K, V> dataAtIndex = data[index];
+        Entry<K, V> dataAtIndex = data[index];
 
         if (dataAtIndex == null) {
             return false;
@@ -51,7 +54,7 @@ public class HashTable<K, V> {
             return true;
         }
 
-        Node<K, V> next = dataAtIndex.getNext();
+        Entry<K, V> next = dataAtIndex.getNext();
         if (next == null) {
             return false;
         }
@@ -73,7 +76,7 @@ public class HashTable<K, V> {
             return null;
         }
 
-        Node<K, V> current = data[index];
+        Entry<K, V> current = data[index];
         while (current != null) {
             if (current.getKey().equals(key)) {
                 return current.getValue();
@@ -87,7 +90,7 @@ public class HashTable<K, V> {
     public V remove(K key) {
         int index = getIndex(key);
 
-        Node<K, V> first = data[index];
+        Entry<K, V> first = data[index];
 
         if (first == null) {
             return null;
@@ -95,7 +98,7 @@ public class HashTable<K, V> {
 
         if (first.getKey().equals(key)) {
             // first element is the one we are looking for
-            Node<K, V> second = first.getNext();
+            Entry<K, V> second = first.getNext();
             if (second != null) {
                 // There are more in the list so set the next one to be the new first
                 data[index] = second;
@@ -111,11 +114,11 @@ public class HashTable<K, V> {
         }
 
         // First element is not the one and there are more to check
-        Node<K, V> current = first.getNext();
+        Entry<K, V> current = first.getNext();
 
         do {
             if (current.getKey().equals(key)) {
-                Node<K, V> next = current.getNext();
+                Entry<K, V> next = current.getNext();
                 if (next != null) {
                     // set next.previous.next to next
                 } else {
@@ -135,12 +138,12 @@ public class HashTable<K, V> {
         return hashcode % data.length;
     }
 
-    private static class Node<K, V> {
+    private static class Entry<K, V> {
         private K key;
         private V value;
-        private Node<K, V> next;
+        private Entry<K, V> next;
 
-        public Node(K key, V value, Node<K, V> next) {
+        public Entry(K key, V value, Entry<K, V> next) {
             this.key = key;
             this.value = value;
             this.next = next;
@@ -162,11 +165,11 @@ public class HashTable<K, V> {
             this.value = value;
         }
 
-        public Node<K, V> getNext() {
+        public Entry<K, V> getNext() {
             return next;
         }
 
-        public void setNext(Node<K, V> next) {
+        public void setNext(Entry<K, V> next) {
             this.next = next;
         }
     }
